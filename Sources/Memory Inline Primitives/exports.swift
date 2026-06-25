@@ -9,4 +9,6 @@
 //
 // ===----------------------------------------------------------------------===//
 
+@_exported public import Memory_Address_Primitives
 @_exported public import Memory_Primitive
+@_exported public import Memory_Region_Primitives

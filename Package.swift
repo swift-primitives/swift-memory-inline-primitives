@@ -19,27 +19,30 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/swift-primitives/swift-memory-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-span-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-memory-allocation-primitives.git", branch: "main"),
         .package(url: "https://github.com/swift-primitives/swift-index-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-affine-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-ordinal-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-store-primitives.git", branch: "main"),
     ],
     targets: [
-        // MARK: - Inline memory leaf — the inline twin of Memory.Heap (Store.Tracked.Protocol)
+        // MARK: - Inline raw byte region (element-free; @_rawLayout(likeArrayOf: UInt8, count: n); conforms Memory.Region)
+        //
+        // Post dependency-inversion, the inline leaf depends on allocation-primitives to declare its
+        // Memory.Allocatable adopt-role conformance (NO Memory.Growable — fixed capacity cannot be
+        // freshly allocated to a byte count). The edge points inline → allocation.
         .target(
             name: "Memory Inline Primitives",
             dependencies: [
                 .product(name: "Memory Primitive", package: "swift-memory-primitives"),
+                .product(name: "Memory Region Primitives", package: "swift-memory-primitives"),
                 .product(name: "Memory Address Primitives", package: "swift-memory-primitives"),
-                .product(name: "Memory Primitives Standard Library Integration", package: "swift-memory-primitives"),
-                .product(name: "Span Protocol Primitives", package: "swift-span-primitives"),
+                .product(name: "Memory Allocator Protocol Primitives", package: "swift-memory-allocation-primitives"),
+            ]
+        ),
+        .testTarget(
+            name: "Memory Inline Primitives Tests",
+            dependencies: [
+                "Memory Inline Primitives",
+                .product(name: "Memory Allocation Primitives", package: "swift-memory-allocation-primitives"),
                 .product(name: "Index Primitives", package: "swift-index-primitives"),
-                .product(name: "Affine Primitives Standard Library Integration", package: "swift-affine-primitives"),
-                .product(name: "Ordinal Primitives Standard Library Integration", package: "swift-ordinal-primitives"),
-                .product(name: "Store Protocol Primitives", package: "swift-store-primitives"),
-                .product(name: "Store Tracked Primitives", package: "swift-store-primitives"),
-                .product(name: "Store Initialization Primitives", package: "swift-store-primitives"),
             ]
         ),
     ],
