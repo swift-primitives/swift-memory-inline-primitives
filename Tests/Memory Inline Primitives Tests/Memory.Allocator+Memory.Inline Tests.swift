@@ -24,8 +24,14 @@ import Memory_Inline_Primitives
 import Testing
 
 @Suite(.serialized)
-struct MemoryAllocatorInlineBackedTests {
-    @Test func arenaOverInlineBumpsAndTearsDown() throws {
+struct `Memory.Allocator Inline Backed Tests` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
+
+extension `Memory.Allocator Inline Backed Tests`.Integration {
+    @Test func `arena over inline bumps and tears down`() throws {
         do {
             var arena = Memory.Allocator<Memory.Inline<1024>>.Arena(Memory.Inline<1024>())
             let cap = arena.capacity
@@ -38,7 +44,7 @@ struct MemoryAllocatorInlineBackedTests {
         #expect(Bool(true))
     }
 
-    @Test func poolOverInlineCarvesSlotsAllocatesAndDetectsDoubleFree() throws {
+    @Test func `pool over inline carves slots allocates and detects double free`() throws {
         typealias Slot = Memory.Allocator<Memory.Inline<512>>.Pool.Slot
         do {
             var pool = try Memory.Allocator<Memory.Inline<512>>.Pool(

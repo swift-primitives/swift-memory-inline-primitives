@@ -20,29 +20,34 @@ import Testing
 // (cross-package teardown is exercised in the allocation package's tests).
 
 @Suite(.serialized)
-struct MemoryInlineTests {
+struct `Memory.Inline Tests` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
 
-    @Test func capacityEqualsTheValueGenericByteCount() {
+extension `Memory.Inline Tests`.Unit {
+    @Test func `capacity equals the value generic byte count`() {
         let inline = Memory.Inline<256>()
         let cap = inline.capacity
         #expect(cap.underlying == 256)
     }
 
-    @Test func capacityTracksDistinctInstantiations() {
+    @Test func `capacity tracks distinct instantiations`() {
         let a = Memory.Inline<16>()
         let b = Memory.Inline<4096>()
         #expect(a.capacity.underlying == 16)
         #expect(b.capacity.underlying == 4096)
     }
 
-    @Test func baseIsReachableAndStableAcrossReads() {
+    @Test func `base is reachable and stable across reads`() {
         let inline = Memory.Inline<128>()
         let first = inline.base
         let second = inline.base
         #expect(first == second)
     }
 
-    @Test func conformsMemoryRegionGenerically() {
+    @Test func `conforms Memory Region generically`() {
         func capacity<R: Memory.Region & ~Copyable>(_ region: borrowing R) -> Memory.Address.Count {
             region.capacity
         }
@@ -50,7 +55,7 @@ struct MemoryInlineTests {
         #expect(capacity(inline).underlying == 64)
     }
 
-    @Test func dropDoesNotCrash() {
+    @Test func `drop does not crash`() {
         do {
             let inline = Memory.Inline<512>()
             #expect(inline.capacity.underlying == 512)
