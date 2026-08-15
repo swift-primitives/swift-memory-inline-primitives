@@ -65,7 +65,9 @@ extension `Memory.Allocator Inline Backed Tests`.Integration {
             // Bit.Vector double-free detection works over inline bytes too.
             try pool.deallocate(at: s1)
             var doubleFreed = false
-            do { try pool.deallocate(at: s1) } catch { if case .doubleFree = error { doubleFreed = true } }
+            do { try pool.deallocate(at: s1) } catch {
+                if case .doubleFree = error { doubleFreed = true }
+            }
             #expect(doubleFreed)
         }
         #expect(Bool(true))
