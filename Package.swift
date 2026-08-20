@@ -1,26 +1,35 @@
-// swift-tools-version: 6.3.3
+// swift-tools-version: 6.4
 
 import PackageDescription
 
 let package = Package(
     name: "swift-memory-inline-primitives",
     platforms: [
-        .macOS("27"),
-        .iOS("27"),
-        .tvOS("27"),
-        .watchOS("27"),
-        .visionOS("27"),
+        .macOS(.v27),
+        .iOS(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27),
+        .visionOS(.v27),
     ],
     products: [
         .library(
             name: "Memory Inline Primitives",
             targets: ["Memory Inline Primitives"]
-        ),
+        )
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-primitives/swift-memory-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-memory-allocation-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-index-primitives.git", branch: "main"),
+        .package(
+            url: "https://github.com/swift-primitives/swift-memory-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-memory-allocation-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-index-primitives.git",
+            branch: "main"
+        ),
     ],
     targets: [
         // MARK: - Inline raw byte region (element-free; @_rawLayout(likeArrayOf: UInt8, count: n); conforms Memory.Region)
@@ -34,14 +43,20 @@ let package = Package(
                 .product(name: "Memory Primitive", package: "swift-memory-primitives"),
                 .product(name: "Memory Region Primitives", package: "swift-memory-primitives"),
                 .product(name: "Memory Address Primitives", package: "swift-memory-primitives"),
-                .product(name: "Memory Allocator Protocol Primitives", package: "swift-memory-allocation-primitives"),
+                .product(
+                    name: "Memory Allocator Protocol Primitives",
+                    package: "swift-memory-allocation-primitives"
+                ),
             ]
         ),
         .testTarget(
             name: "Memory Inline Primitives Tests",
             dependencies: [
                 "Memory Inline Primitives",
-                .product(name: "Memory Allocation Primitives", package: "swift-memory-allocation-primitives"),
+                .product(
+                    name: "Memory Allocation Primitives",
+                    package: "swift-memory-allocation-primitives"
+                ),
                 .product(name: "Index Primitives", package: "swift-index-primitives"),
             ]
         ),
@@ -63,7 +78,7 @@ for target in package.targets where ![.system, .binary, .plugin, .macro].contain
     ]
 
     let package: [SwiftSetting] = [
-        .enableExperimentalFeature("RawLayout"),
+        .enableExperimentalFeature("RawLayout")
     ]
 
     target.swiftSettings = (target.swiftSettings ?? []) + ecosystem + package
