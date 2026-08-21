@@ -32,11 +32,7 @@ let package = Package(
         ),
     ],
     targets: [
-        // MARK: - Inline raw byte region (element-free; @_rawLayout(likeArrayOf: UInt8, count: n); conforms Memory.Region)
-        //
-        // Post dependency-inversion, the inline leaf depends on allocation-primitives to declare its
-        // Memory.Allocatable adopt-role conformance (NO Memory.Growable — fixed capacity cannot be
-        // freshly allocated to a byte count). The edge points inline → allocation.
+
         .target(
             name: "Memory Inline Primitives",
             dependencies: [
