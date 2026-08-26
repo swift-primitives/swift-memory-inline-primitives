@@ -1,8 +1,8 @@
-import Memory_Address_Primitives
-import Memory_Region_Primitives
+import Memory_Address
+import Memory_Region
 import Testing
 
-@testable import Memory_Inline_Primitives
+@testable import Memory_Inline
 
 @Suite(.serialized)
 struct `Memory.Inline Tests` {

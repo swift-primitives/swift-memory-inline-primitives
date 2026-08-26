@@ -1,4 +1,4 @@
-# Memory Inline Primitives
+# Memory Inline
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -11,7 +11,7 @@
 `Memory.Inline<n>` is a raw memory region whose storage lives *inline* — the `n` bytes are laid out directly in the value, so the region needs no heap. It travels wherever the value travels: on the stack, inside another aggregate, or inside a move-only wrapper.
 
 ```swift
-import Memory_Inline_Primitives
+import Memory_Inline
 
 // 256 raw bytes laid out inline in the value — no heap allocation.
 let region = Memory.Inline<256>()
@@ -23,7 +23,7 @@ print(region.capacity.underlying)   // 256
 The capacity is fixed at the type level, so different sizes are different types — `Memory.Inline<256>` is a distinct type from `Memory.Inline<512>`:
 
 ```swift
-import Memory_Inline_Primitives
+import Memory_Inline
 
 let small = Memory.Inline<16>()     // 16 inline bytes
 let large = Memory.Inline<4096>()   // 4096 inline bytes
@@ -37,7 +37,7 @@ The region is `~Copyable` (move-only), so an allocator carving it is never silen
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-memory-inline-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-memory-inline.git", branch: "main")
 ]
 ```
 
@@ -45,7 +45,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Memory Inline Primitives", package: "swift-memory-inline-primitives"),
+        .product(name: "Memory Inline", package: "swift-memory-inline"),
     ]
 )
 ```
@@ -60,7 +60,7 @@ One library product.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Memory Inline Primitives` | `Sources/Memory Inline Primitives/` | The `Memory.Inline<n>` inline raw byte region, with its `Memory.Region` conformance (`base` + `capacity`) and its `Memory.Allocatable` adopt-role conformance. |
+| `Memory Inline` | `Sources/Memory Inline/` | The `Memory.Inline<n>` inline raw byte region, with its `Memory.Region` conformance (`base` + `capacity`) and its `Memory.Allocatable` adopt-role conformance. |
 
 Foundation-free.
 
@@ -79,9 +79,9 @@ Foundation-free.
 
 ## Related Packages
 
-- [`swift-memory-primitives`](https://github.com/swift-primitives/swift-memory-primitives) — `Memory.Region`, the raw-byte region seam `Memory.Inline` conforms to.
-- [`swift-memory-heap-primitives`](https://github.com/swift-primitives/swift-memory-heap-primitives) — `Memory.Heap`, the heap-allocated sibling region for capacities not known at compile time.
-- [`swift-memory-allocation-primitives`](https://github.com/swift-primitives/swift-memory-allocation-primitives) — the pool and arena allocators that carve slots within an inline region.
+- [`swift-memory`](https://github.com/swift-molecules/swift-memory) — `Memory.Region`, the raw-byte region seam `Memory.Inline` conforms to.
+- [`swift-memory-heap`](https://github.com/swift-molecules/swift-memory-heap) — `Memory.Heap`, the heap-allocated sibling region for capacities not known at compile time.
+- [`swift-memory-allocation`](https://github.com/swift-molecules/swift-memory-allocation) — the pool and arena allocators that carve slots within an inline region.
 
 ---
 

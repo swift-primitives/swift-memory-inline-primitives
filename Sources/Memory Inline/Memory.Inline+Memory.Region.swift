@@ -1,6 +1,6 @@
-public import Memory_Address_Primitives
+public import Memory_Address
 public import Memory_Primitive
-public import Memory_Region_Primitives
+public import Memory_Region
 
 extension Memory.Inline: Memory.Region {
 

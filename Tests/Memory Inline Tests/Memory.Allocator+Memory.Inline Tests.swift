@@ -1,6 +1,6 @@
-import Index_Primitives
-import Memory_Allocation_Primitives
-import Memory_Inline_Primitives
+import Index
+import Memory_Allocation
+import Memory_Inline
 import Testing
 
 @Suite(.serialized)

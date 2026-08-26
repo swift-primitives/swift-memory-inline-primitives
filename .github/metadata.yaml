@@ -1,7 +1,7 @@
 # .github/metadata.yaml
 description: "Memory.Inline<n> — an element-free, fixed-capacity inline raw byte region of exactly n bytes (no heap allocation); the substrate for inline pool and arena allocators."
 topics:
-  - primitives
+  - molecules
   - memory
   - inline
 homepage: "https://swift-institute.org"

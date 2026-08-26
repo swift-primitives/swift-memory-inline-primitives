@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-memory-inline-primitives",
+    name: "swift-memory-inline",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,47 +13,47 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Memory Inline Primitives",
-            targets: ["Memory Inline Primitives"]
+            name: "Memory Inline",
+            targets: ["Memory Inline"]
         )
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-memory-primitives.git",
+            url: "https://github.com/swift-molecules/swift-memory.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-memory-allocation-primitives.git",
+            url: "https://github.com/swift-molecules/swift-memory-allocation.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-index-primitives.git",
+            url: "https://github.com/swift-molecules/swift-index.git",
             branch: "main"
         ),
     ],
     targets: [
 
         .target(
-            name: "Memory Inline Primitives",
+            name: "Memory Inline",
             dependencies: [
-                .product(name: "Memory Primitive", package: "swift-memory-primitives"),
-                .product(name: "Memory Region Primitives", package: "swift-memory-primitives"),
-                .product(name: "Memory Address Primitives", package: "swift-memory-primitives"),
+                .product(name: "Memory Primitive", package: "swift-memory"),
+                .product(name: "Memory Region", package: "swift-memory"),
+                .product(name: "Memory Address", package: "swift-memory"),
                 .product(
-                    name: "Memory Allocator Protocol Primitives",
-                    package: "swift-memory-allocation-primitives"
+                    name: "Memory Allocator Protocol",
+                    package: "swift-memory-allocation"
                 ),
             ]
         ),
         .testTarget(
-            name: "Memory Inline Primitives Tests",
+            name: "Memory Inline Tests",
             dependencies: [
-                "Memory Inline Primitives",
+                "Memory Inline",
                 .product(
-                    name: "Memory Allocation Primitives",
-                    package: "swift-memory-allocation-primitives"
+                    name: "Memory Allocation",
+                    package: "swift-memory-allocation"
                 ),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
+                .product(name: "Index", package: "swift-index"),
             ]
         ),
     ],
