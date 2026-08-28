@@ -1,6 +1,7 @@
-import Index
+import Cardinal
 import Memory_Allocation
 import Memory_Inline
+import Tagged
 import Testing
 
 @Suite(.serialized)
@@ -15,17 +16,15 @@ extension `Memory.Allocator Inline Backed Tests`.Integration {
         do {
             var arena = Memory.Allocator<Memory.Inline<1024>>.Arena(Memory.Inline<1024>())
             let cap = arena.capacity
-            #expect(cap.underlying == 1024)
+            #expect(cap.underlying.rawValue == 1024)
             _ = try arena.allocate(count: Memory.Address.Count(UInt(64)), alignment: .`8`)
             let alloc = arena.allocated
-            #expect(alloc.underlying >= 64)
+            #expect(alloc.underlying.rawValue >= 64)
         }
 
-        #expect(Bool(true))
     }
 
     @Test func `pool over inline carves slots allocates and detects double free`() throws {
-        typealias Slot = Memory.Allocator<Memory.Inline<512>>.Pool.Slot
         do {
             var pool = try Memory.Allocator<Memory.Inline<512>>.Pool(
                 carving: Memory.Inline<512>(),
@@ -34,7 +33,7 @@ extension `Memory.Allocator Inline Backed Tests`.Integration {
             )
 
             let cap = pool.capacity
-            #expect(cap == Index<Slot>.Count(32))
+            #expect(cap.underlying.rawValue == 32)
 
             let s0 = try pool.allocateSlot()
             let s1 = try pool.allocateSlot()
@@ -49,6 +48,5 @@ extension `Memory.Allocator Inline Backed Tests`.Integration {
             }
             #expect(doubleFreed)
         }
-        #expect(Bool(true))
     }
 }

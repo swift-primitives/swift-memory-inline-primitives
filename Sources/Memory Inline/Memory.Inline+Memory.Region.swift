@@ -1,6 +1,5 @@
-public import Memory_Address
-public import Memory_Primitive
-public import Memory_Region
+public import Cardinal_Tagged
+public import Memory
 
 extension Memory.Inline: Memory.Region {
 

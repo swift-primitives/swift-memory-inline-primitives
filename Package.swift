@@ -19,7 +19,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-memory.git",
+            url: "https://github.com/swift-atoms/swift-memory.git",
             branch: "main"
         ),
         .package(
@@ -27,7 +27,15 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-index.git",
+            url: "https://github.com/swift-molecules/swift-cardinal-tagged.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-atoms/swift-cardinal.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
         ),
     ],
@@ -36,9 +44,8 @@ let package = Package(
         .target(
             name: "Memory Inline",
             dependencies: [
-                .product(name: "Memory Primitive", package: "swift-memory"),
-                .product(name: "Memory Region", package: "swift-memory"),
-                .product(name: "Memory Address", package: "swift-memory"),
+                .product(name: "Memory", package: "swift-memory"),
+                .product(name: "Cardinal Tagged", package: "swift-cardinal-tagged"),
                 .product(
                     name: "Memory Allocator Protocol",
                     package: "swift-memory-allocation"
@@ -53,7 +60,9 @@ let package = Package(
                     name: "Memory Allocation",
                     package: "swift-memory-allocation"
                 ),
-                .product(name: "Index", package: "swift-index"),
+                .product(name: "Memory", package: "swift-memory"),
+                .product(name: "Cardinal", package: "swift-cardinal"),
+                .product(name: "Tagged", package: "swift-tagged"),
             ]
         ),
     ],

@@ -1,5 +1,6 @@
-import Memory_Address
-import Memory_Region
+import Cardinal
+import Memory
+import Tagged
 import Testing
 
 @testable import Memory_Inline
@@ -15,14 +16,14 @@ extension `Memory.Inline Tests`.Unit {
     @Test func `capacity equals the value generic byte count`() {
         let inline = Memory.Inline<256>()
         let cap = inline.capacity
-        #expect(cap.underlying == 256)
+        #expect(cap.underlying.rawValue == 256)
     }
 
     @Test func `capacity tracks distinct instantiations`() {
         let a = Memory.Inline<16>()
         let b = Memory.Inline<4096>()
-        #expect(a.capacity.underlying == 16)
-        #expect(b.capacity.underlying == 4096)
+        #expect(a.capacity.underlying.rawValue == 16)
+        #expect(b.capacity.underlying.rawValue == 4096)
     }
 
     @Test func `base is reachable and stable across reads`() {
@@ -37,16 +38,15 @@ extension `Memory.Inline Tests`.Unit {
             region.capacity
         }
         let inline = Memory.Inline<64>()
-        #expect(capacity(inline).underlying == 64)
+        #expect(capacity(inline).underlying.rawValue == 64)
     }
 
     @Test func `drop does not crash`() {
         do {
             let inline = Memory.Inline<512>()
-            #expect(inline.capacity.underlying == 512)
+            #expect(inline.capacity.underlying.rawValue == 512)
             _ = inline.base
         }
 
-        #expect(Bool(true))
     }
 }
