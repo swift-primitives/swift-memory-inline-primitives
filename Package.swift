@@ -27,10 +27,6 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-cardinal-tagged.git",
-            branch: "main"
-        ),
-        .package(
             url: "https://github.com/swift-atoms/swift-cardinal.git",
             branch: "main"
         ),
@@ -45,7 +41,7 @@ let package = Package(
             name: "Memory Inline",
             dependencies: [
                 .product(name: "Memory", package: "swift-memory"),
-                .product(name: "Cardinal Tagged", package: "swift-cardinal-tagged"),
+                .product(name: "Cardinal Tagged", package: "swift-cardinal"),
                 .product(
                     name: "Memory Allocator Protocol",
                     package: "swift-memory-allocation"
